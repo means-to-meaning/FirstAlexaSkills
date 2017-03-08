@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+"""
+Convenience script for users to extract the example Alexa skills
+into a directory of their choice
+"""
+
+import argparse
+import os
+import sys
+import zipfile
+import pkg_resources
+
+
+def exskills_archive_filename():
+    resource_package = "FirstAlexaSkills"
+    resource_path = '/'.join(('data', 'example_skills.zip'))  # Do not use os.path.join()!
+    my_filename = pkg_resources.resource_filename(resource_package, resource_path)
+    return my_filename
+
+
+def input_aruguments():
+    parser = argparse.ArgumentParser(
+        description='Extract the example Alexa skills to a folder of your choice')
+    # add more arguments here:
+    parser.add_argument("--output-dir", required=False,
+                        help="Directory where to put the example skills (defaults to working dir)")
+    (args, additional) = parser.parse_known_args()
+    return args, additional
+
+
+def main(args):
+    """Extracts the example skills packaged as package_data"""
+    ex_skills_archive = exskills_archive_filename()
+    if args.output_dir:
+        if os.path.isdir(args.output_dir):
+            output_dir = args.output_dir
+        else:
+            print("Directory doesn't exist!")
+            sys.exit(-1)
+    else:
+        output_dir = os.getcwd()
+    zip_ref = zipfile.ZipFile(ex_skills_archive, 'r')
+    zip_ref.extractall(output_dir)
+    zip_ref.close()
+
+
+if __name__ == "__main__":
+    (myargs, myadditional) = input_aruguments()
+    main(myargs)

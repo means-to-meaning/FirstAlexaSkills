@@ -1,0 +1,5 @@
+LightOnIntent turn on the light
+LightOffIntent turn off the light
+LightStatusIntent is the light on
+TemperatureSetIntent set the temperature to {Temperature}
+TemperatureGetIntent what is the temperature

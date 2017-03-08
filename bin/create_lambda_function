@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+"""
+Commandline script to create (upload) AWS Lambda functions using code in a local directory
+Needs to be run for each Lambda function only once
+"""
+
+import argparse
+import pkg_resources
+import boto3
+import sys
+from FirstAlexaSkills import lambda_utils
+
+
+
+def input_aruguments():
+    parser = argparse.ArgumentParser(
+        description='Upload/Update/Test tool for AWS Lambda functions (Alexa ASK)')
+    # add more arguments here:
+    parser.add_argument("--function-name", required=True,
+                        help="unique name of the AWS Lambda function")
+    parser.add_argument("--user", default="lambdaUser",
+                        help="AWS IAM username for developing AWS Lambda functions")
+    parser.add_argument("--region", default="eu-west-1",
+                        help="AWS region where the Lambda function resides")
+    parser.add_argument("--dir", required=True,
+                        help="Directory containing the Lambda function")
+    parser.add_argument("--execution-role", required=True,
+                        help="Execution role for AWS Lambda function")
+    parser.add_argument("--test-data", default="test_data.json",
+                        help="Test data for faking the Alexa event")
+    (args, additional) = parser.parse_known_args()
+    return args, additional
+
+
+def main(args):
+    """Creates a Lambda function if the name doesn't exist yet"""
+    alexa_event_template = lambda_utils.get_eventtemplate_fn()
+    alexa_test_data = args.test_data
+    session = boto3.Session(profile_name=args.user, region_name=args.region)
+    client = session.client('lambda')
+    # create the function if it doesn't exist
+    existing_funs_list = lambda_utils.list_lambda_functions(client)
+    if myargs.function_name not in existing_funs_list:
+        fun_arn = lambda_utils.create_lambda(client, args.function_name,
+                                             args.dir, args.execution_role)
+        if fun_arn:
+            print("Function succesfully created!")
+            print("AWS Lambda function ARN: " + str(fun_arn))
+    else:
+        print("The function already exists! Use update_lambda_function to update it.")
+        sys.exit(-1)
+    print("Testing function now!")
+    # test AWS Lambda function by injecting an Alexa event based on test data
+    lambda_utils.run_all_tests(client, args.function_name, alexa_test_data, alexa_event_template)
+    sys.exit(0)
+
+if __name__ == "__main__":
+    (myargs, myadditional) = input_aruguments()
+    main(myargs)

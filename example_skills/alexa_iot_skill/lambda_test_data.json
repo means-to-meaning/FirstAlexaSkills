@@ -1,0 +1,11 @@
+[
+  {"name": "MadeUpNonexistingIntent", "applicationId": "amzn1.ask.skill.df6cd4e0-1d21-461a-8e19-63360b9667d7"},
+  {"name": "LightOnIntent", "applicationId": "fakeid"},
+  {"name": "LightOnIntent", "applicationId": "amzn1.ask.skill.df6cd4e0-1d21-461a-8e19-63360b9667d7"},
+  {"name": "LightOffIntent", "applicationId": "amzn1.ask.skill.df6cd4e0-1d21-461a-8e19-63360b9667d7"},
+  {"name": "LightStatusIntent", "applicationId": "amzn1.ask.skill.df6cd4e0-1d21-461a-8e19-63360b9667d7"},
+  {"name": "TemperatureGetIntent", "applicationId": "amzn1.ask.skill.df6cd4e0-1d21-461a-8e19-63360b9667d7"},
+  {"intent":{"name": "TemperatureSetIntent", "slots": {"Temperature": {"name": "Temperature", "value": "23"}}}, "applicationId": "amzn1.ask.skill.df6cd4e0-1d21-461a-8e19-63360b9667d7"},
+  {"name": "TemperatureGetIntent", "applicationId": "amzn1.ask.skill.df6cd4e0-1d21-461a-8e19-63360b9667d7"},
+  {"intent":{"name": "TemperatureSetIntent", "slots": {"Temperature": {"name": "Temperature", "value": "26"}}}, "applicationId": "amzn1.ask.skill.df6cd4e0-1d21-461a-8e19-63360b9667d7"}
+]

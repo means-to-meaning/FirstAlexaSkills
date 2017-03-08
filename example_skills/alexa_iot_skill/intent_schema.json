@@ -1,0 +1,25 @@
+{
+  "intents": [
+    {
+      "intent": "LightOnIntent"
+    },
+    {
+      "intent": "LightOffIntent"
+    },
+    {
+      "intent": "LightStatusIntent"
+    },
+    {
+      "intent": "TemperatureSetIntent",
+      "slots": [
+        {
+          "name": "Temperature",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "TemperatureGetIntent"
+    }
+  ]
+}

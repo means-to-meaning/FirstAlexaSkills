@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+"""
+Commandline script to update (upload) AWS Lambda functions using code in a local directory
+"""
+
+import argparse
+import boto3
+from FirstAlexaSkills import lambda_utils
+
+
+def input_aruguments():
+    parser = argparse.ArgumentParser(
+        description='Upload/Update/Test tool for AWS Lambda functions (Alexa ASK)')
+    # add more arguments here:
+    parser.add_argument("--function-name", required=True,
+                        help="unique name of the AWS Lambda function")
+    parser.add_argument("--user", default="lambdaUser",
+                        help="AWS IAM username for developing AWS Lambda functions")
+    parser.add_argument("--region", default="eu-west-1",
+                        help="AWS region where the Lambda function resides")
+    parser.add_argument("--dir", required=True,
+                        help="Directory containing the Lambda function")
+    parser.add_argument("--test-data", default="test_data.json",
+                        help="Test data for faking the Alexa event")
+    (args, additional) = parser.parse_known_args()
+    return args, additional
+
+
+def main(args):
+    """Updates the Lambda function (only if it exists) and runs a test"""
+    alexa_event_template = lambda_utils.get_eventtemplate_fn()
+    alexa_test_data = args.test_data
+
+    session = boto3.Session(profile_name=args.user, region_name=args.region)
+    client = session.client('lambda')
+    lambda_utils.update_lambda(client, args.function_name, args.dir)
+    # test AWS Lambda function by injecting an Alexa event based on test data
+    lambda_utils.run_all_tests(client, args.function_name,alexa_test_data,alexa_event_template)
+
+if __name__ == "__main__":
+    (myargs, myadditional) = input_aruguments()
+    main(myargs)
