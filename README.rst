@@ -160,6 +160,7 @@ Here is what we are going to do:
 6. Everything was building up to this point, since now you can handle the Alexa intent on your device, and the best bit is that you can immediately send a reply, which will be forwarded back to Alexa and magic! The Echo will reply you.
 
 New to programming, or Python? Checkout the `15 minute mini-intro`_!
+If you are thinking of setting up a hackathon to develop some new third-party Alexa skills, this `guide`_ has you covered!
 
 .. _`Alexa Skills Kit`: https://developer.amazon.com/alexa-skills-kit
 .. _`official ASK starter guide`: https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/getting-started-guide
@@ -174,3 +175,4 @@ New to programming, or Python? Checkout the `15 minute mini-intro`_!
 .. _`execution role for AWS Lambda`: http://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-create-iam-role.html
 .. _`IAM user`: http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html
 .. _`step by step guide`: https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/registering-and-managing-alexa-skills-in-the-developer-portal
+.. _`guide`: https://github.com/means-to-meaning/FirstAlexaSkills/tree/master/docs/hackathon_setup.rst
