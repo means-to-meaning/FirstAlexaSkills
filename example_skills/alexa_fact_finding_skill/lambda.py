@@ -125,7 +125,6 @@ def on_launch(launch_request, session):
     """ Called when the user launches the skill without specifying what they
     want
     """
-    
     print("on_launch requestId=" + launch_request['requestId'] +
           ", sessionId=" + session['sessionId'])
     # Dispatch to your skill's launch

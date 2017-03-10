@@ -35,9 +35,9 @@ class TestFunctional():
             There was an error:
             'response'
             Sending Alexa Intent: AskIntent and slots:{}
-            Alexa replied: I can say whatever you want me to say
+            Alexa replied: I say whatever I please
             Sending Alexa Intent: AskIntent and slots:{}
-            Alexa replied: I can say whatever you want me to say"""
+            Alexa replied: I say whatever I please"""
         cls.ref_reply = ref_dat.splitlines()
         cls.ref_reply = [l.strip() for l in cls.ref_reply]
 
