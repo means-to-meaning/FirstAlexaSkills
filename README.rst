@@ -15,34 +15,49 @@ The proposed development workflow is:
 
     $ mkdir alexa_development
     $ unpack_example_skills # Start with a working template for an AWS Lambda function
-    $ cd example_skills # Explore the Alexa skills in this directory and then create your first function
-    $ create_lambda_function --function-name saysomething --dir alexa_skill_saysomething --execution-role $EXECUTION_ROLE --test-data alexa_skill_saysomething/lambda_test_data.json
-    $ <YOUR_FAV_EDITOR_HERE> alexa_skill_saysomething/lambda_function.py # modify the skill to reply something different
-    $ update_lambda_function # update the function in the cloud and test it
+    $ cd example_skills # Explore the Alexa skills in this directory
+    $ cd alexa_skill_saysomething # Once ready, create your own AWS Lambda function
+    $ create_lambda_function --function-name saysomething --dir .
+    Function succesfully created!
+    AWS Lambda function ARN: arn:aws:lambda:eu-west-1:your_account_id:function:saysomething
+    Testing function now!
+    Sending Alexa Intent: FakeIntent and slots:{}
+    There was an error:
+    'response'
+    Sending Alexa Intent: AskIntent and slots:{}
+    Alexa replied: I say whatever I please
+    Sending Alexa Intent: AskIntent and slots:{}
+    Alexa replied: I say whatever I please
+    $ <YOUR_FAV_EDITOR_HERE> lambda_function.py # modify the skill
+    $ update_lambda_function --function-name saysomething --dir . # update the function in the cloud
+    once you are happy with the functionality create an ASK using AWS Lambda function ARN above
+
+
 
 Setup and requirements
 ----------------------
 
 1. Install the ``FirstAlexaSkills`` package and its dependencies
 
-     .. code-block:: console
+    .. code-block:: console
 
         $ pip install FirstAlexaSkills
 
 2. Create an Amazon `developer account`_
 3. Create an `AWS account`_ (`the first million AWS Lambda calls are free`_)
-4. Create an IAM user called 'lambdaUser' for running and updating the AWS Lambda functions
-    (TODO: add the right policy for the user)
+4. Create an `IAM user`_ called 'lambdaUser' for running and updating the AWS Lambda functions. The user will require the 'AWSLambdaFullAccess' permissions.
 5. Configure the AWS CLI to use credentials of your new IAM user
 
-     .. code-block:: console
+    .. code-block:: console
 
-        $ aws configure --profile lambdaUser --region us-east1
+        $ aws configure --profile lambdaUser --region eu-west-1
 
-6. create an execution role for AWS Lambda functions
-    TODO: add link
+6. Create an `execution role for AWS Lambda`_ functions
 
-Tutorial on creating Alexa third-party skills
+ Preferably use 'basic_lambda_execute' as name for the role, since the package uses it as default. Unless you expect your function to require special privileges, like access to S3, use the official policy 'AWSLambdaExecute'.
+
+
+Examples on creating Alexa third-party skills
 ---------------------------------------------
 
 Say something! (alexa_skill_saysomething)
@@ -53,13 +68,68 @@ Create an Alexa third-party skill that you can tell a phrase: "Alexa, ask <my_sk
 
 **Suggested steps:**
 
-1. Pick a name for your AWS Lambda function
-2. Run update_lambda_function (TODO: add example params)
-3. Have a look at our example: data/example_skills/alexa_skill_saysomething/lambda_function.py
-4. Try to follow the execution flow which starts in the function lambda_handler()
-5. By now you you should be completely confused and frustrated from staring at incomprehensible code logic dealing with some uknown objects called event and intent. So here is what is going on: Imaging you tell the Echo something like 'Alexa, ask magic skill to say something'. Your Alexa skill (which isn't created yet but will be in a few steps) will be used to convert the words 'say something' to an 'intent'. Alexa will then send this 'intent' to your AWS Lambda function which will process it, and send a reply within seconds back to Alexa. Ok, this is still a lot to process. It's enough for now if you understand two things: A. In your Alexa skill, you will define which sentences (utterances) correspond to which intents. B. When you speak to an Echo, the AWS Lambda function (the Python code you've been looking at) will receive an intent and will process it.
-6. If at this point, it might be useful to have a look at an example Alexa 'event' object: data/test_event_template.json this is what the function
-7. Go through the execution flow of our lambda_function.py again, but this time pay special attention to the function on_intent() function
+1. Start by creating a new directory where we will unpack the example Alexa skills
+
+    .. code-block:: console
+
+        $ mkdir alexa_development
+        $ unpack_example_skills
+        $ cd example_skills
+
+2. Inside we will find three skills, including the saysomething skill
+
+    .. code-block:: console
+
+        $ cd alexa_skill_saysomething
+
+3. The directory contains all you need to create your first Alexa skill. The file lambda_function.py contains the AWS Lambda code, lambda_test_data.json contains test data for generating fake Alexa events for testing. Start by opening lambda_function.py in your favourite Python editor and try to follow the execution flow which starts in the function lambda_handler().
+
+4. By now you you should be completely confused and frustrated from staring at incomprehensible code logic dealing with some uknown objects called event and intent. So here is what is going on: Imaging you tell the Echo something like 'Alexa, ask magic skill to say something'. Your Alexa skill (which isn't created yet but will be in a few steps) will be used to convert the words 'say something' to an 'intent'. Alexa will then send this 'intent' to your AWS Lambda function which will process it, and send a reply within seconds back to Alexa. Ok, this is still a lot to process. It's enough for now if you understand two things: A. In your Alexa skill, you will define which sentences (utterances) correspond to which intents. B. When you speak to an Echo, the AWS Lambda function (the Python code you've been looking at) will receive an intent and will process it.
+
+5. We can upload the function as is to the cloud to make sure all works as expected. When we run create_lambda_function, it will zip up this directory, send it to the cloud and test it using 3 separate Alexa events. TODO: add script to print events using testdata to the console
+
+    .. code-block:: console
+
+        $ create_lambda_function --function-name saysomething --dir .
+        Function succesfully created!
+        AWS Lambda function ARN: arn:aws:lambda:eu-west-1:your_account_id:function:saysomething
+        Testing function now!
+        Sending Alexa Intent: FakeIntent and slots:{}
+        There was an error:
+        'response'
+        Sending Alexa Intent: AskIntent and slots:{}
+        Alexa replied: I say whatever I please
+        Sending Alexa Intent: AskIntent and slots:{}
+        Alexa replied: I say whatever I please
+
+6. Now we can register a third-party Alexa skill using the Alexa Skills Kit (see this `step by step guide`_). We will only create the skill for testing purposes and will not submit it to the store. The skill directory contains data for the interaction model. intent_schema.json contains the intent schema and utterances.txt contain a single sample utterances. You will need to copy both of them in the appropriate fields. You will need the following information:
+    - Skill Information
+        - Skill Type: Custom
+        - Application Id: make one up
+        - Name: make one up
+        - Invocation Name: make one up
+    - Interaction Model
+        - Intent Schema: copy&paste contents of intent_schema.json
+        - Sample Utterances: copy&paste contents of utterances.txt
+    - Configuration
+        - Service Endpoint Type: AWS Lambda ARN (Amazon Resource Name)
+        - Pick a geographical region that is closest to your target customers: you have to pick the region where you created the AWS Lambda function (if you followed our setup, this region will be eu-west-1, Europe) copy&paste the AWS Lambda function ARN from the create_lambda_function console output
+    - Test
+        - Service Simulator: type in a sentence to simulate speaking to an Alexa device - 'say something' and check out the reply. If you see a reply appearing, you can use an Alexa device such as an Echo, or Dot to test the skill as well. The device needs to be paired with the same account we used for developing this skill.
+
+7. Go through the execution flow of our lambda_function.py again, but this time pay special attention to the on_intent() function. We will modify the variable 'speech_output' so that Alexa replies: 'I can say whatever you want me to say'
+
+    .. code-block:: console
+
+        $ <YOUR_FAV_EDITOR_HERE> lambda_function.py
+
+8. Once we are satisfied with the local changes we need to update the Lambda in the cloud and test it
+
+    .. code-block:: console
+
+        $ update_lambda_function --function-name saysomething --dir .
+
+9. If you have an Echo, you can talk to your skill now! Otherwise you will have to make due with the Simulator. If the reply is 'I can say whatever you want me to say', then you should congratulate yourself. You have just created and modified your first Alexa skill! Now see whether you can modify the skill to say something else.
 
 
 What's cool? (alexa_skill_whatscool)
@@ -69,7 +139,7 @@ What's cool? (alexa_skill_whatscool)
 Teach Alexa about what is cool. Currently the example skill chooses randomly between three replies what is the coolest movie ever. Can you teach it what are some other cool things? (bands?  food?)
 
 **Suggested steps:**
-
+TODO: add steps
 
 Light on! (alexa_iot_skill)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,3 +171,6 @@ New to programming, or Python? Checkout the `15 minute mini-intro`_!
 .. _`AWS account`: https://aws.amazon.com/
 .. _`the first million AWS Lambda calls are free`: https://aws.amazon.com/lambda/pricing/
 .. _`15 minute mini-intro`: https://github.com/means-to-meaning/FirstAlexaSkills/tree/master/docs/python_intro.rst
+.. _`execution role for AWS Lambda`: http://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-create-iam-role.html
+.. _`IAM user`: http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html
+.. _`step by step guide`: https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/registering-and-managing-alexa-skills-in-the-developer-portal

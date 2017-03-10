@@ -24,9 +24,9 @@ def input_aruguments():
                         help="AWS region where the Lambda function resides")
     parser.add_argument("--dir", required=True,
                         help="Directory containing the Lambda function")
-    parser.add_argument("--execution-role", required=True,
+    parser.add_argument("--execution-role", default='basic_lambda_execute',
                         help="Execution role for AWS Lambda function")
-    parser.add_argument("--test-data", default="test_data.json",
+    parser.add_argument("--test-data", default="lambda_test_data.json",
                         help="Test data for faking the Alexa event")
     (args, additional) = parser.parse_known_args()
     return args, additional
@@ -36,13 +36,14 @@ def main(args):
     """Creates a Lambda function if the name doesn't exist yet"""
     alexa_event_template = lambda_utils.get_eventtemplate_fn()
     alexa_test_data = args.test_data
+    execrole_arn = lambda_utils.get_execrole_arn(args.execution_role, args.user, args.region)
     session = boto3.Session(profile_name=args.user, region_name=args.region)
     client = session.client('lambda')
     # create the function if it doesn't exist
     existing_funs_list = lambda_utils.list_lambda_functions(client)
     if myargs.function_name not in existing_funs_list:
         fun_arn = lambda_utils.create_lambda(client, args.function_name,
-                                             args.dir, args.execution_role)
+                                             args.dir, execrole_arn)
         if fun_arn:
             print("Function succesfully created!")
             print("AWS Lambda function ARN: " + str(fun_arn))

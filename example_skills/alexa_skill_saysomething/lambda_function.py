@@ -74,7 +74,7 @@ def say_something(intent, session):
     session_attributes = {}
     reprompt_text = None
 
-    speech_output = "I can say whatever you want me to say"
+    speech_output = "I say whatever I please"
     should_end_session = True
 
     # Setting reprompt_text to None signifies that we do not want to reprompt

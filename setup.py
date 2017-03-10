@@ -105,7 +105,7 @@ setup(
     # dependencies). You can install these using the following syntax,
     # for example:
     # $ pip install -e .[dev,test]
-    tests_require=['tox'],
+    tests_require=['tox', 'nose'],
     cmdclass={'test': Tox},
 
     extras_require={

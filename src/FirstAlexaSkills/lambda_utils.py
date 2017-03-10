@@ -46,6 +46,12 @@ def get_account_id(profile_name, region=None):
     return owner_id
 
 
+def get_execrole_arn(execrole_name, profile_name, region=None):
+    account_id = get_account_id(profile_name, region)
+    execrole_arn = 'arn:aws:iam::' + account_id + ':role/' + execrole_name
+    return execrole_arn
+
+
 def list_lambda_functions(client):
     function_name_list = []
     # Create a reusable Paginator

@@ -48,8 +48,8 @@ class TestFunctional:
             raise Exception("Failed to create Lambda function when setting up test!")
         cls.event_list = lambda_utils.generate_testevents(cls.alexa_event_data, cls.event_template)
         cls.ref_reply_list = [None,
-                              "I can say whatever you want me to say",
-                              "I can say whatever you want me to say"]
+                              "I say whatever I please",
+                              "I say whatever I please"]
 
     @classmethod
     def teardown_class(cls):

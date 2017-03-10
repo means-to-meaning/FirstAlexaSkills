@@ -45,8 +45,7 @@ class TestFunctional():
                                            'lambda_test_data.json')
         cls.user = 'testFirstAlexaSkilluser'
         cls.region = 'eu-west-1'
-        account_id = lambda_utils.get_account_id(profile_name=cls.user, region=cls.region)
-        cls.execution_role = 'arn:aws:iam::' + account_id + ':role/basic_lambda_execute'
+        cls.execution_role = 'basic_lambda_execute'
         cls.script = 'update_lambda_function'
         cls.skill_dir = os.path.join(cls.created_examples_dir, 'alexa_skill_saysomething')
         cls.function_name = 'saysomething_test'
