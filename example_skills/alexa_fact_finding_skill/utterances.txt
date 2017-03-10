@@ -1,0 +1,9 @@
+AskForFactIntent tell me a fact
+AskForFactIntent tell me something interesting
+AskForFactIntent tell me a fact please
+AskForFactIntent tell me something interesting please
+AskForFactIntent tell me a fact about {Person}
+AskForFactIntent tell me something about {Person}
+AskForFactIntent tell me a fact about {Person} please
+AskForFactIntent tell me something about {Person} please
+AskForFactIntent tell me something interesting about {Person} please
