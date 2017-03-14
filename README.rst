@@ -1,6 +1,10 @@
 FirstAlexaSkills - A Python package for learning first steps with Alexa skills
 ==============================================================================
 
+.. image:: https://readthedocs.org/projects/firstalexaskills/badge/?version=latest
+        :target: http://firstalexaskills.readthedocs.io/en/latest/?badge=latest
+        :alt: Documentation Status
+
 Welcome to the wonderful world of Alexa interactions! Do you have great ideas for teaching Alexa new skills? There are only two steps to make a third-party skill using the `Alexa Skills Kit`_:
 
 * creating an Alexa skill (ASK) which will convert your speech into intents (think of them as events for now) which you define - by associating utterances (sentences) to intents. For more details, take a look at the `official ASK starter guide`_.
