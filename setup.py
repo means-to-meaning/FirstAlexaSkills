@@ -109,8 +109,8 @@ setup(
     cmdclass={'test': Tox},
 
     extras_require={
-        # 'dev': ['check-manifest'],
-        # 'test': ['nose', 'coverage'],
+        'dev': ['check-manifest', 'sphinx', 'autodoc'],
+        'test': ['nose'],
     },
 
     # If there are data files included in your packages that need to be
