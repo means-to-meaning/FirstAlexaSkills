@@ -10,6 +10,7 @@ Welcome to FirstAlexaSkills's documentation!
    :maxdepth: 4
    :caption: Contents:
 
+   hackathon_setup
    FirstAlexaSkills
 
 
