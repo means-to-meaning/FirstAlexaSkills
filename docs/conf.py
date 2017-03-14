@@ -56,6 +56,7 @@ author = u'Vlastimil Pis'
 # built documents.
 #
 # The short X.Y version.
+import sys
 import pkg_resources
 try:
     release = pkg_resources.get_distribution('FirstAlexaSkills').version
