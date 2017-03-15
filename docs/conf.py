@@ -19,6 +19,8 @@
 # import os
 # import sys
 # sys.path.insert(0, u'/Users/vlasto/src/FirstAlexaSkills/src/FirstAlexaSkills')
+import sys
+import pkg_resources
 try:
     import sphinx_rtd_theme
 except ImportError:
@@ -39,10 +41,7 @@ except ImportError:
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc',
-    'sphinx.ext.doctest',
-    'sphinx.ext.todo',
-    'sphinx.ext.viewcode']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.viewcode']
 
 if spelling is not None:
     extensions.append('sphinxcontrib.spelling')
@@ -69,8 +68,6 @@ author = u'Vlastimil Pis'
 # built documents.
 #
 # The short X.Y version.
-import sys
-import pkg_resources
 try:
     release = pkg_resources.get_distribution('FirstAlexaSkills').version
 except pkg_resources.DistributionNotFound:
@@ -185,7 +182,6 @@ texinfo_documents = [
 ]
 
 
-
 # -- Options for Epub output ----------------------------------------------
 
 # Bibliographic Dublin Core info.
@@ -205,5 +201,3 @@ epub_copyright = copyright
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
-
-
