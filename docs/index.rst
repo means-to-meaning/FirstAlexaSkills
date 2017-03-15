@@ -12,6 +12,7 @@ Welcome to FirstAlexaSkills's documentation!
 
    hackathon_setup
    FirstAlexaSkills
+   python_intro
 
 
 Indices and tables
