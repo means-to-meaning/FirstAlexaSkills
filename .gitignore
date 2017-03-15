@@ -1,6 +1,7 @@
 # general things to ignore
 .*
 !/.gitignore
+!/.travis.yml
 build/
 dist/
 *.egg-info/
