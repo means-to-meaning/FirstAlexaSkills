@@ -185,8 +185,8 @@ def lambda_handler(event, context):
     function.
     """
 
-    if (event['session']['application']['applicationId'] != skill_id):
-        raise ValueError("Invalid Application ID")
+    # if (event['session']['application']['applicationId'] != skill_id):
+    #     raise ValueError("Invalid Application ID")
 
     if event['session']['new']:
         on_session_started({'requestId': event['request']['requestId']},

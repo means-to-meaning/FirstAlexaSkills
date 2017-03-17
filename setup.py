@@ -10,6 +10,8 @@ from setuptools import setup, find_packages
 import os
 from os import path
 import sys
+import shutil
+import glob
 from setuptools.command.test import test as TestCommand
 
 base_dir = os.path.dirname(__file__)
@@ -20,7 +22,13 @@ with open(path.join(base_dir, 'README.rst')) as f:
     long_description = f.read()
 
 
-class Tox(TestCommand):
+class ToxCommand(TestCommand):
+    user_options = [('tox-args=', 'a', "Arguments to pass to tox")]
+
+    def initialize_options(self):
+        """Initialize options and set their defaults."""
+        TestCommand.initialize_options(self)
+        self.tox_args = ''
 
     def finalize_options(self):
         TestCommand.finalize_options(self)
@@ -30,8 +38,49 @@ class Tox(TestCommand):
     def run_tests(self):
         # import here, cause outside the eggs aren't loaded
         import tox
-        errcode = tox.cmdline(self.test_args)
+        import shlex
+        errcode = tox.cmdline(args=shlex.split(self.tox_args))
         sys.exit(errcode)
+
+
+class CleanCommand(TestCommand):
+    description = "Custom clean command that forcefully removes dist/build directories"
+    user_options = []
+
+    def initialize_options(self):
+        self.cwd = None
+
+    def finalize_options(self):
+        self.cwd = os.getcwd()
+
+    def run(self):
+        assert os.getcwd() == self.cwd, 'Must be in package root: %s' % self.cwd
+
+        # List of things to remove
+        rm_list = list()
+
+        # Find any .pyc files or __pycache__ dirs
+        for root, dirs, files in os.walk(self.cwd, topdown=False):
+            for fname in files:
+                if fname.endswith('.pyc') and os.path.isfile(os.path.join(root, fname)):
+                    rm_list.append(os.path.join(root, fname))
+            if root.endswith('__pycache__'):
+                rm_list.append(root)
+
+        # Find egg's
+        for egg_dir in glob.glob('*.egg') + glob.glob('*egg-info'):
+            rm_list.append(egg_dir)
+
+        # Zap!
+        for rm in rm_list:
+            if self.verbose:
+                print "Removing '%s'" % rm
+            if os.path.isdir(rm):
+                if not self.dry_run:
+                    shutil.rmtree(rm)
+            else:
+                if not self.dry_run:
+                    os.remove(rm)
 
 
 setup(
@@ -106,7 +155,8 @@ setup(
     # for example:
     # $ pip install -e .[dev,test]
     tests_require=['tox', 'nose'],
-    cmdclass={'test': Tox},
+    cmdclass={'test': ToxCommand,
+              'clean': CleanCommand},
 
     extras_require={
         'dev': ['check-manifest', 'sphinx', 'autodoc'],
