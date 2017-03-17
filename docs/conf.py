@@ -31,9 +31,7 @@ try:
 except ImportError:
     spelling = None
 
-
 # -- General configuration ------------------------------------------------
-
 # If your documentation needs a minimal Sphinx version, state it here.
 #
 # needs_sphinx = '1.0'
@@ -155,13 +153,9 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'FirstAlexaSkills.tex', u'FirstAlexaSkills Documentation',
-     u'Author', 'manual'),
-]
-
+    (master_doc, 'FirstAlexaSkills.tex', u'FirstAlexaSkills Documentation', u'Author', 'manual')]
 
 # -- Options for manual page output ---------------------------------------
-
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
@@ -171,7 +165,6 @@ man_pages = [
 
 
 # -- Options for Texinfo output -------------------------------------------
-
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
