@@ -47,8 +47,8 @@ class TestFunctional:
         else:
             raise Exception("Failed to create Lambda function when setting up test!")
         cls.event_list = lambda_utils.generate_testevents(cls.alexa_event_data, cls.event_template)
-        cls.ref_reply_list = [None,
-                              "I say whatever I please",
+        cls.ref_reply_list = ["hmm not sure how to deal with your request",
+                              "hmm not sure how to deal with your request",
                               "I say whatever I please"]
 
     @classmethod

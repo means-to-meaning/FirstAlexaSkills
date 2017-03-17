@@ -15,7 +15,7 @@ cur_dir = os.path.dirname(os.path.realpath(__file__))
 package_root_dir = os.path.dirname(os.path.dirname(cur_dir))
 
 
-class TestFunctional():
+class TestFunctional:
 
     @staticmethod
     def check_lambda_reply(client, function_name, event, ref_reply):
@@ -27,20 +27,15 @@ class TestFunctional():
         """This method does the setup and script execution once for all the tests"""
         # setup test
         # load reference reply
-        cls.ref_reply = []
-        ref_dat = """Function succesfully created!
-            AWS Lambda function ARN: xxxxxxxxx
-            Testing function now!
-            Sending Alexa Intent: FakeIntent and slots:{}
-            There was an error:
-            'response'
-            Sending Alexa Intent: AskIntent and slots:{}
-            Alexa replied: I say whatever I please
-            Sending Alexa Intent: AskIntent and slots:{}
-            Alexa replied: I say whatever I please"""
-        cls.ref_reply = ref_dat.splitlines()
-        cls.ref_reply = [l.strip() for l in cls.ref_reply]
-
+        cls.ref_reply = ['Function succesfully created!',
+                         'AWS Lambda function ARN: xxxxxxxxx',
+                         'Testing function now!',
+                         'Sending Alexa Intent: FakeIntent and slots:{}',
+                         'Alexa replied: hmm not sure how to deal with your request',
+                         'Sending Alexa Intent: AskIntent and slots:{}',
+                         'Alexa replied: hmm not sure how to deal with your request',
+                         'Sending Alexa Intent: saySomethingIntent and slots:{}',
+                         'Alexa replied: I say whatever I please']
         # unpack the example_skills in a temp dir
         cls.output_dir = tempfile.mkdtemp()
         cls.cmd = ['unpack_example_skills', '--output-dir', cls.output_dir]
@@ -58,8 +53,8 @@ class TestFunctional():
         cls.region = 'eu-west-1'
         cls.execution_role = 'basic_lambda_execute'
         cls.script = 'create_lambda_function'
-        cls.skill_dir = os.path.join(cls.created_examples_dir, 'alexa_skill_saysomething')
-        cls.function_name = 'saysomething_test'
+        cls.skill_dir = os.path.join(cls.created_examples_dir, 'alexa_skill_first')
+        cls.function_name = 'firstskill_test'
         cls.session = boto3.Session(profile_name=cls.user, region_name=cls.region)
         cls.client = cls.session.client('lambda')
         # check if lambda function exists and if yes, delete it
