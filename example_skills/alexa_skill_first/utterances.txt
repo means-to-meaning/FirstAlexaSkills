@@ -1,0 +1,6 @@
+saySomethingIntent say something
+saySomethingIntent tell me something
+personalFactIntent tell me a fact about {Person}
+personalFactIntent tell me something about {Person}
+whatsCoolIntent what is the coolest {Subject}
+whatsCoolIntent what is the best {Subject}

@@ -1,0 +1,25 @@
+{
+  "intents": [
+    {
+      "intent": "saySomethingIntent"
+    },
+    {
+      "intent": "personalFactIntent",
+      "slots": [
+        {
+          "name": "Person",
+          "type": "LIST_OF_PEOPLE"
+        }
+      ]
+    },
+    {
+      "intent": "whatsCoolIntent",
+      "slots": [
+        {
+          "name": "Subject",
+          "type": "LIST_OF_SUBJECTS"
+        }
+      ]
+    }
+  ]
+}

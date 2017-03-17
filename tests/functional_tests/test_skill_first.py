@@ -19,18 +19,18 @@ class TestFunctional:
     def setup_class(cls):
         """This method does the setup and script execution once for all the tests"""
         # setup test:
-        cls.user = 'testFirstAlexaSkilluser'
+        cls.user = 'lambdaUser'
         cls.region = 'eu-west-1'
         account_id = lambda_utils.get_account_id(profile_name=cls.user, region=cls.region)
         cls.execution_role = 'arn:aws:iam::' + account_id + ':role/basic_lambda_execute'
-        cls.dir = os.path.join(package_root_dir, 'example_skills', 'alexa_skill_saysomething')
-        cls.event_template = os.path.join(package_root_dir, 'src', 'FirstAlexaSkills', 'data',
-                                          'event_template.json')
+        cls.dir = os.path.join(package_root_dir, 'example_skills', 'alexa_skill_first')
+        cls.event_template = lambda_utils.get_eventtemplate_fn()
         cls.alexa_event_data = os.path.join(package_root_dir, 'example_skills',
-                                            'alexa_skill_saysomething', 'lambda_test_data.json')
+                                            'alexa_skill_first', 'tests', 'data',
+                                            'lambda_test_data.json')
         # not generating random names on purpose,
         # if things go wrong, we don't pollute the account
-        cls.function_name = 'saysomething_test'
+        cls.function_name = 'firstskill_test'
         cls.session = boto3.Session(profile_name=cls.user, region_name=cls.region)
         cls.client = cls.session.client('lambda')
         # create the function if it doesn't exist

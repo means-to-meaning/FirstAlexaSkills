@@ -1,5 +1,0 @@
-[
-  {"name": "CoolestIntent"},
-  {"name": "CoolestIntent", "applicationId": "fakeid"},
-  {"intent": {"name": "CoolestIntent", "slots": {"Subject": {"name": "Subject", "value": "movie"}}}, "applicationId": "amzn1.ask.skill.123"}
-]

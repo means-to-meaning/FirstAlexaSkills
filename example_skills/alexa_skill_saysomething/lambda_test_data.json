@@ -1,5 +1,0 @@
-[
-  {"name": "FakeIntent"},
-  {"name": "AskIntent", "applicationId": "fakeid"},
-  {"name": "AskIntent", "applicationId": "amzn1.ask.skill.df6cd4e0-1d21-461a-8e19-63360b9667d7"}
-]

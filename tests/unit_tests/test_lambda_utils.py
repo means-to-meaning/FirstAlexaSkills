@@ -1,7 +1,7 @@
 from FirstAlexaSkills import lambda_utils
 
 
-def test_replace_nested_dict_val():
+def test_replace_nesteddictval():
     test_in1 = {"a": "1", "b": {"aa": "11", "bb": {"aaa": "333"}},
                 "c": ["3", "4"]}
     test_in2 = {"a": "1", "b": {"aa": "11", "bb": {"aaa": "333"}},

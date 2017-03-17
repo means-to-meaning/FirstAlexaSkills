@@ -1,0 +1,5 @@
+[
+  {"name": "FakeIntent"},
+  {"name": "AskIntent", "applicationId": "fakeid"},
+  {"name": "saySomethingIntent", "applicationId": "amzn1.ask.skill.123"}
+]

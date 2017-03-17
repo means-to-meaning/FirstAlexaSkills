@@ -42,8 +42,8 @@ class TestFunctional():
         # any existing test functions in the cloud
         cls.alexa_event_template = lambda_utils.get_eventtemplate_fn()
         cls.alexa_test_data = os.path.join(cls.created_examples_dir, 'alexa_skill_saysomething',
-                                           'lambda_test_data.json')
-        cls.user = 'testFirstAlexaSkilluser'
+                                           'tests', 'data', 'lambda_test_data.json')
+        cls.user = 'lambdaUser'
         cls.region = 'eu-west-1'
         cls.execution_role = 'basic_lambda_execute'
         cls.script = 'update_lambda_function'
