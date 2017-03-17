@@ -1,6 +1,9 @@
 FirstAlexaSkills - A Python package for learning first steps with Alexa skills
 ==============================================================================
 
+.. image:: https://travis-ci.org/means-to-meaning/FirstAlexaSkills.svg?branch=master
+    :target: https://travis-ci.org/means-to-meaning/FirstAlexaSkills
+
 .. image:: https://readthedocs.org/projects/firstalexaskills/badge/?version=latest
         :target: http://firstalexaskills.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
