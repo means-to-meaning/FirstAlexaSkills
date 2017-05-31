@@ -1,15 +1,15 @@
 FirstAlexaSkills package
 ========================
 
-Subpackages
------------
+.. Subpackages
+.. -----------
+..
+.. .. toctree::
+..
+..    FirstAlexaSkills.data
 
-.. toctree::
-
-    FirstAlexaSkills.data
-
-Submodules
-----------
+Modules
+-------
 
 FirstAlexaSkills.lambda_utils module
 ------------------------------------
