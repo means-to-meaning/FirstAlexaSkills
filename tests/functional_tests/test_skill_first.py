@@ -13,7 +13,7 @@ class TestFunctional:
     @staticmethod
     def check_lambda_reply(client, function_name, event, ref_reply):
         test_res = lambda_utils.test_lambda(client, function_name, event)
-        assert test_res == ref_reply
+        assert test_res in ref_reply
 
     @classmethod
     def setup_class(cls):
@@ -47,9 +47,11 @@ class TestFunctional:
         else:
             raise Exception("Failed to create Lambda function when setting up test!")
         cls.event_list = lambda_utils.generate_testevents(cls.alexa_event_data, cls.event_template)
-        cls.ref_reply_list = ["hmm not sure how to deal with your request",
-                              "hmm not sure how to deal with your request",
-                              "I say whatever I please"]
+        cls.ref_reply_list = [["hmm not sure how to deal with your request"],
+                              ["I say whatever I please"],
+                              [None],
+                              ['robogals was founded in 2008 in melbourne, australia'],
+                              ["Lord of the rings", "Batman, the dark knight", "Indiana Jones"]]
 
     @classmethod
     def teardown_class(cls):

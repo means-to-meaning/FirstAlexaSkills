@@ -21,14 +21,16 @@ Here is all it takes to create, upload, test, modify, re-upload and re-test your
     $ unpack_example_skills # unpacks Alexa skill examples to ./example_skills
     $ cd example_skills # Explore the Alexa skills in this directory
     $ cd alexa_skill_first # Once ready, create your own AWS Lambda function
-    $ create_lambda_function --function-name firstskill --dir .
+    $ create_lambda_function --function-name skill_first --dir .
     Function succesfully created!
     AWS Lambda function ARN: arn:aws:lambda:eu-west-1:your_account_id:function:firstskill
+    $ test_lambda_function --function-name skill_first --test-data tests/data/lambda_test_data.json
     ... test output ...
-    $ <YOUR_FAV_EDITOR_HERE> lambda_function.py # modify the skill
-    $ update_lambda_function --function-name firstskill --dir . # update the function in the cloud
+    $ idle lambda_function.py # modify the skill
+    $ update_lambda_function --function-name skill_first --dir . # update the function in the cloud
     once you are happy with the functionality create an ASK using AWS Lambda function ARN above
-
+    $ test_lambda_function --function-name skill_first --test-data tests/data/lambda_test_data.json
+    ... test updated output ...
 
 You can install ``FirstAlexaSkills`` with:
 

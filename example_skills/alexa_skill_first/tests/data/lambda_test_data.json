@@ -1,5 +1,7 @@
 [
   {"name": "FakeIntent"},
-  {"name": "AskIntent", "applicationId": "fakeid"},
-  {"name": "saySomethingIntent", "applicationId": "amzn1.ask.skill.123"}
+  {"name": "saySomethingIntent", "applicationId": "amzn1.ask.skill.123"},
+  {"name": "personalFactIntent"},
+  {"name": "personalFactIntent", "slots": {"Person": {"name": "Person", "value": "robogals"}}},
+  {"name": "whatsCoolIntent", "slots": {"Subject": {"name": "Subject", "value": "movie"}}}
 ]

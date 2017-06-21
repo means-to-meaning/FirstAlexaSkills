@@ -185,5 +185,6 @@ setup(
     # },
     scripts=['bin/unpack_example_skills',
              'bin/update_lambda_function',
-             'bin/create_lambda_function']
+             'bin/create_lambda_function',
+             'bin/test_lambda_function']
 )

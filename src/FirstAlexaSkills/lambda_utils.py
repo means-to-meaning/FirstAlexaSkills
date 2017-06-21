@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import sys
 import logging
 import shutil
 import json
@@ -163,7 +164,9 @@ def run_all_tests(client, function_name, alexa_event_data, event_template):
     for event in event_list:
         reply_text = test_lambda(client, function_name, event)
         if reply_text:
-            print("Alexa replied: " + str(reply_text))
+            print("Lambda function replied: " + str(reply_text))
+        else:
+            print("Lambda function didn't reply!!!")
         time.sleep(1)
 
 
@@ -183,7 +186,30 @@ def test_lambda(client, function_name, event):
             res = response["Payload"].read()
             reply_json = json.loads(res)
             reply_text = reply_json["response"]["outputSpeech"]["text"]
-        except Exception as e:
-            print("There was an error: ")
-            print(e)
+        except Exception:
+            print("Lambda function returned an error:")
+            print_nested(reply_json)
         return reply_text
+
+
+def print_nested(obj, nested_level=0, output=sys.stdout):
+    spacing = '   '
+    if type(obj) == dict:
+        # print >> output, '%s{' % ((nested_level) * spacing)
+        for k, v in obj.items():
+            if hasattr(v, '__iter__'):
+                print >> output, '%s%s:' % ((nested_level + 1) * spacing, k)
+                print_nested(v, nested_level + 1, output)
+            else:
+                print >> output, '%s%s: %s' % ((nested_level + 1) * spacing, k, v)
+        # print >> output, '%s}' % (nested_level * spacing)
+    elif type(obj) == list:
+        print >> output, '%s' % ((nested_level) * spacing)
+        for v in obj:
+            if hasattr(v, '__iter__'):
+                print_nested(v, nested_level + 1, output)
+            else:
+                print >> output, '%s%s' % ((nested_level + 1) * spacing, v)
+        # print >> output, '%s' % ((nested_level) * spacing)
+    else:
+        print >> output, '%s%s' % (nested_level * spacing, obj)

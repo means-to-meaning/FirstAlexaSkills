@@ -20,11 +20,6 @@ Installation
 
  Preferably use 'basic_lambda_execute' as name for the role, since the package uses it as default. Unless you expect your function to require special privileges, like access to S3, use the official policy 'AWSLambdaExecute'.
 
-Supported platforms
--------------------
-
-Currently we test ``cryptography`` on Python 2.7 only. The main reason is that AWS currently only supports Lambda functions written in Python 2.7. While technically the code in the package is independent of the code used for the AWS Lambda functions, practically, it makes a lot of sense to keep the versions aligned.
-
 .. _`developer account`: https://developer.amazon.com/
 .. _`AWS account`: https://aws.amazon.com/
 .. _`the first million AWS Lambda calls are free`: https://aws.amazon.com/lambda/pricing/

@@ -38,13 +38,8 @@ def get_person_fact(person_name):
     """
     if person_name.lower() == 'catherine':
         speech_output = 'catherine works at amazon building models for alexa'
-    elif person_name.lower() == 'vlas':
-        speech_output = 'vlas works for lab one two six'
     elif person_name.lower() == 'robogals':
-        list_of_facts = ["robogals was founded in 2008 in melbourne, australia",
-                         "robogals cambridge is one of eleven UK chapters"]
-        idx = random.randint(0, len(list_of_facts)-1)
-        speech_output = list_of_facts[idx]
+        speech_output = 'robogals was founded in 2008 in melbourne, australia'
     else:
         speech_output = 'i don\'t know much about ' + person_name
     return speech_output
