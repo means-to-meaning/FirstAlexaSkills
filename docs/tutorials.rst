@@ -21,8 +21,8 @@ Let's stop and think how can we do what the challenge is asking for. We will nee
 
 **Suggested steps:**
 
-   .. image:: https://github.com/means-to-meaning/FirstAlexaSkills/blob/master/docs/alexa_skill.png
-        :align: center
+.. image:: https://github.com/means-to-meaning/FirstAlexaSkills/blob/master/docs/alexa_skill.png
+    :align: center
 
 Deploy and test an existing skill (green boxes)
 -----------------------------------------------
@@ -75,7 +75,8 @@ Deploy and test an existing skill (green boxes)
 
         $ cat tests/data/lambda_test_data.json
 
-7. Our tests generate 3 different types of intents.
+7. Our tests generate 3 different types of intents. We can generate the events and send them to AWS Lambda using test_lambda_function commandline script.
+
    .. code-block:: console
 
         $ test_lambda_function --function-name skill_first --test-data tests/data/lambda_test_data.json
@@ -149,19 +150,19 @@ Deploy and test an existing skill (green boxes)
 
 8. We can register a third-party Alexa skill using the Alexa Skills Kit (see this `step by step guide`_). We will only create the skill for testing purposes and will not submit it to the store. The skill directory contains data for the interaction model. intent_schema.json contains the intent schema and `utterances.txt`_ contain a single sample utterances. You will need to copy both of them in the appropriate fields. You will need the following information:
 
-    - Skill Information
-        - Skill Type: Custom
-        - Application Id: make one up
-        - Name: make one up
-        - Invocation Name: make one up
-    - Interaction Model
-        - Intent Schema: copy&paste contents of intent_schema.json
-        - Sample Utterances: copy&paste contents of `utterances.txt`_
-    - Configuration
-        - Service Endpoint Type: AWS Lambda ARN (Amazon Resource Name)
-        - Pick a geographical region that is closest to your target customers: you have to pick the region where you created the AWS Lambda function (if you followed our setup, this region will be eu-west-1, Europe) copy&paste the AWS Lambda function ARN from the create_lambda_function console output
-    - Test
-        - Service Simulator: type in a sentence to simulate speaking to an Alexa device - 'say something' and check out the reply. If you see a reply appearing, you can use an Alexa device such as an Echo, or Dot to test the skill as well. The device needs to be paired with the same account we used for developing this skill.
+   - Skill Information
+      - Skill Type: Custom
+      - Application Id: make one up
+      - Name: make one up
+      - Invocation Name: make one up
+   - Interaction Model
+      - Intent Schema: copy&paste contents of intent_schema.json
+      - Sample Utterances: copy&paste contents of `utterances.txt`_
+   - Configuration
+      - Service Endpoint Type: AWS Lambda ARN (Amazon Resource Name)
+      - Pick a geographical region that is closest to your target customers: you have to pick the region where you created the AWS Lambda function (if you followed our setup, this region will be eu-west-1, Europe) copy&paste the AWS Lambda function ARN from the create_lambda_function console output
+   - Test
+      - Service Simulator: type in a sentence to simulate speaking to an Alexa device - 'say something' and check out the reply. If you see a reply appearing, you can use an Alexa device such as an Echo, or Dot to test the skill as well. The device needs to be paired with the same account we used for developing this skill.
 
 9. Test the newly created Alexa skill with a physical device - for example with an `Echo Dot`_. You can invoke the individual skills using any of the utterances we used in our ASK definition (see `utterances.txt`_). The device should give the replies currently coded in lambda_function.py as we have seen during our AWS Lambda testing.
 
