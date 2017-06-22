@@ -15,19 +15,21 @@ Create your first Alexa third-party skill with the following features:
 
 To accomplish the above, we will use a working skill which we will deploy to AWS, test and later modify. Rather than start of by learning all the details about AWS Lambda and the Alexa service APIs, we will focus on a simple, but reliable workflow that will allow us to develop much more complex Alexa skills later on.
 
+**Before we start:**
+
+Let's stop and think how can we do what the challenge is asking for. We will need to create three intents (saying something, person facts, subject trivia), a mapping for sentences and intents and also define some variables (name of the person, etc.) that Alexa needs to pass us alongside the intent name. We will need to create a third-party Alexa skill using ASK and we will also need a service, that will process the intents and generate replies for them. Our example skill comes with all the resources required to define an Alexa skill using ASK - utterances.txt, intent_schema.json. It also comes with working code for the webservice (AWS Lambda) - lambda_function.py. It also comes with tests, test cases and command-line tools that will allow us to easily modify the existing skill code. Let's dive in!
+
 **Suggested steps:**
 
-   .. image:: https://github.com/means-to-meaning/FirstAlexaSkills/tree/master/docs/alexa_skill.svg
+   .. image:: https://github.com/means-to-meaning/FirstAlexaSkills/blob/master/docs/alexa_skill.png
         :align: center
-
-
 
 Deploy and test an existing skill (green boxes)
 -----------------------------------------------
 
 1. Start by creating a new directory where we will unpack the example Alexa skills
 
-    .. code-block:: console
+   .. code-block:: console
 
         $ mkdir alexa_development
         $ unpack_example_skills
@@ -35,11 +37,15 @@ Deploy and test an existing skill (green boxes)
 
 2. Inside we will find two skills, and some additional resources for our Alexa development. Let's have a look at our first skill:
 
-    .. code-block:: console
+   .. code-block:: console
 
         $ cd alexa_skill_first
 
-3. The above directory contains all you need to create your first Alexa skill. The only file we will focus on at this stage is lambda_function.py, which contains the AWS Lambda code. Start by opening lambda_function.py in your favourite Python editor and try to follow the execution flow which starts in the function lambda_handler().
+3. The above directory contains all you need to create your first Alexa skill. The only file we will focus on at this stage is lambda_function.py, which contains the AWS Lambda code. Start by opening lambda_function.py in an editor (we will be using IDLE for this tutorial) and try to follow the execution flow which starts in the function lambda_handler().
+
+   .. code-block:: console
+
+        $ idle lambda_function.py
 
 4. The first look at lambda_function.py can be confusing since the code is dealing with some objects called "event" and "intent". To understand what they are and when is this code executed, let's look at what happens when you speak to Alexa:
 
@@ -48,27 +54,35 @@ Deploy and test an existing skill (green boxes)
 
    (Source: `Alexa blogs`_)
 
-   You tell the Echo something like 'Alexa, ask magic skill to say something'. Your "magic skill" (a third-party Alexa skill) will be used to convert the words 'say something' to a particular intent, let's call it the "saySomethingIntent". Alexa will then trigger your AWS Lambda function in the cloud and supply it with the intent object containing the data of your "saySomethingIntent". Your AWS Lambda function (the code in lambda_function.py) will process the intent according to your own logic (defined in lambda_function.py) and send a reply in a within seconds back to Alexa. Ok, this is still a lot to process. It's enough for now if you understand two things: A. In your Alexa skill, you will define which sentences (utterances) correspond to which intents. B. When you speak to an Echo, the AWS Lambda function (the Python code you've been looking at) will receive a specific intent that the sentenced triggered and will process it.
+   You tell the Echo something like 'Alexa, ask magic skill to say something'. Your "magic skill" (a third-party Alexa skill) will be used to convert the words 'say something' to a particular intent, let's call it the "saySomethingIntent". Alexa will then trigger your AWS Lambda function in the cloud and supply it with the intent object containing the data of your "saySomethingIntent". Your AWS Lambda function (the code in lambda_function.py) will process the intent according to your own logic (defined in lambda_function.py) and send a reply in a within seconds back to Alexa. Ok, this is still a lot to process. It's enough for now if you understand two things:
+
+   A. In your Alexa skill definition (on developer.amazon.com), you will define which sentences (utterances) correspond to which intents.
+
+   B. When you speak to Alexa, the AWS Lambda function (the Python code you've been looking at) will receive a specific intent that the sentence triggered and will process it.
 
 
-5. We can upload the function as is to the cloud to make sure all works as expected. When we run create_lambda_function, it will zip up this directory and send it to the cloud.
+5. We can upload the function as is to the cloud to make sure all works as expected. When we run create_lambda_function, it will zip up this directory and send it to the cloud. We will need the "AWS Lambda function ARN" identifier later to link our skill definition to our processing function.
 
-    .. code-block:: console
+   .. code-block:: console
 
         $ create_lambda_function --function-name skill_first --dir .
         Function successfully created!
         AWS Lambda function ARN: arn:aws:lambda:<your_aws_region>:<your_account_id>:function:skill_first
 
-6. Our Lambda function is now in the cloud, ready to be executed. Let's make sure we can indeed run it. One neat way to test our AWS Lambda functions is to generate fake Alexa intents. This allows us to skip speaking to an Echo and to automate our tests. We generate a specific intent and send it to our AWS Lambda function as if we were the Alexa service, and in return we will get the text reply the Alexa service would receive. For an example intent json object see: `event_template.json`_. This package allows you to create these test events simply by modifying selected fields of the intent object, such as the "name", or any variables ("slots"). Let's have a quick look at our test events:
+6. Our Lambda function is now in the cloud, ready to be executed. Let's make sure we can indeed run it. One neat way to test our AWS Lambda functions is to generate fake Alexa intents and send them to AWS Lambda. This allows us to skip speaking to an Echo and to automate our tests. We generate a specific intent and send it to our AWS Lambda function as if we were the Alexa service, and in return we will get the text reply the Alexa service would receive. For an example intent json object see: `event_template.json`_. The AlexaFirstSkills package allows us to create these test events by modifying selected fields of the intent object, such as the "name", or any variables ("slots"). Let's have a quick look at our test events:
 
-    .. code-block:: console
+   .. code-block:: console
 
         $ cat tests/data/lambda_test_data.json
+
+7. Our tests generate 3 different types of intents.
+   .. code-block:: console
+
         $ test_lambda_function --function-name skill_first --test-data tests/data/lambda_test_data.json
 
    The tests print the intent and slots sent to our AWS Lambda function and the generated reply. Let's look at them step by step:
 
-    .. code-block:: console
+   .. code-block:: console
 
         ############################################
         Testing function now!
@@ -78,14 +92,14 @@ Deploy and test an existing skill (green boxes)
 
    The first test just checks what happens if we send Lambda an intent that it doesn't recognize, we chose the arbitrary name "FakeIntent". It is reassuring to by default, the function would send a meaningful reply back to Alexa. A situation like this can easily occur if you add a skill to your ASK definition without adjusting the Lambda skill functionality.
 
-    .. code-block:: console
+   .. code-block:: console
 
         Sending Alexa Intent: saySomethingIntent and slots:{}
         Lambda function replied: I say whatever I please
 
    Our first test of an existing intent shows that Lambda generates a proper reply. Our first task for this coding challenge involves changing this reply to a string of our choice. Once we have a definition of our skill on developer.amazon.com, we can test this skill out by telling Echo, "Alexa, say something" and Alexa will reply: "I say whatever I please". At that point we won't be surprised however, since we already tested and proved here that the intent handling works!
 
-    .. code-block:: console
+   .. code-block:: console
 
         Sending Alexa Intent: personalFactIntent and slots:{}
         Lambda function returned an error:
@@ -117,14 +131,14 @@ Deploy and test an existing skill (green boxes)
    There are at least two ways to fix this. a/ We don't assume the "Person" key will always be present for this intent, that means we add a check for it. b/ It would be really good to add a default reply if things go south, just like we did for the case when Lambda receives an unknown intent. Unexpected problems in Python usually trigger an exception, which causes the program to stop immediately. One thing every skill should consider is to catch these exceptions and rather than simply throw an error, send a default reply to the user notifying them that you cannot provide an answer at this time due to an error.
 
 
-    .. code-block:: console
+   .. code-block:: console
 
         Sending Alexa Intent: personalFactIntent and slots:{u'Person': {u'name': u'personalFactIntent', u'value': u'robogals'}}
         Lambda function replied: robogals was founded in 2008 in melbourne, australia
 
    We don't need to bother with fixing the Lambda error handling right now. We can simply add a "Person" variable into our test and everything works just fine. The above test corresponds to the utterance: "Alexa, tell me something interesting about `Robogals`_".
 
-    .. code-block:: console
+   .. code-block:: console
 
         Sending Alexa Intent: whatsCoolIntent and slots:{u'Subject': {u'name': u'whatsCoolIntent', u'value': u'movie'}}
         Lambda function replied: Lord of the rings
@@ -133,7 +147,7 @@ Deploy and test an existing skill (green boxes)
 
    Equipped with the test_lambda_function script and our test definitions in tests/data/lambda_test_data.json, we can confidently go into changing the lambda functionality as we have a simple way to check we are on the right track. In addition to testing the entire Lambda function, we can also test individual bits of Python functionality locally before uploading it to AWS Lambda - we will see more about that later. But now, let's define our skill!
 
-7. We can register a third-party Alexa skill using the Alexa Skills Kit (see this `step by step guide`_). We will only create the skill for testing purposes and will not submit it to the store. The skill directory contains data for the interaction model. intent_schema.json contains the intent schema and `utterances.txt`_ contain a single sample utterances. You will need to copy both of them in the appropriate fields. You will need the following information:
+8. We can register a third-party Alexa skill using the Alexa Skills Kit (see this `step by step guide`_). We will only create the skill for testing purposes and will not submit it to the store. The skill directory contains data for the interaction model. intent_schema.json contains the intent schema and `utterances.txt`_ contain a single sample utterances. You will need to copy both of them in the appropriate fields. You will need the following information:
 
     - Skill Information
         - Skill Type: Custom
@@ -149,7 +163,7 @@ Deploy and test an existing skill (green boxes)
     - Test
         - Service Simulator: type in a sentence to simulate speaking to an Alexa device - 'say something' and check out the reply. If you see a reply appearing, you can use an Alexa device such as an Echo, or Dot to test the skill as well. The device needs to be paired with the same account we used for developing this skill.
 
-8. Test the newly created Alexa skill with a physical device - for example with an `Echo Dot`_. You can invoke the individual skills using any of the utterances we used in our ASK definition (see `utterances.txt`_). The device should give the replies currently coded in lambda_function.py as we have seen during our AWS Lambda testing.
+9. Test the newly created Alexa skill with a physical device - for example with an `Echo Dot`_. You can invoke the individual skills using any of the utterances we used in our ASK definition (see `utterances.txt`_). The device should give the replies currently coded in lambda_function.py as we have seen during our AWS Lambda testing.
 
    If you don't have an Alexa device, you can easily test your skill through the developer.amazon.com portal - navigate to where you defined your skill and go the the Test section. You can type a sentence and you should receive text reply from Alexa.
 
@@ -172,7 +186,7 @@ Develop and update skill (blue boxes)
 
 3. Let's explore the local tests a bit before making any changes to our skill:
 
-    .. code-block:: console
+   .. code-block:: console
 
         $ idle tests/test_lambda_unit.py
 
@@ -180,7 +194,7 @@ Develop and update skill (blue boxes)
 
    We can ran all of the tests at once and confirm that our current skill code works as expected (using nose or any other Python test framework):
 
-    .. code-block:: console
+   .. code-block:: console
 
         $ nosetests tests/test_lambda_unit.py
         ----------------------------------------------------------------------
@@ -189,20 +203,20 @@ Develop and update skill (blue boxes)
 
 4. Now that we know that our intent answering functions are working fine (to the extent we've tested them), we can modify get_something() in our code to return 'I can say whatever you want me to say':
 
-    .. code-block:: console
+   .. code-block:: console
 
         $ idle lambda_function.py
 
 5. Once we make the change and save the file, it would be interesting to see what happens to our tests - one of them should no longer work since we have just changed the response get_something() is giving us and the test is still expecting to receive 'I say whatever I please'.
 
-    .. code-block:: console
+   .. code-block:: console
 
         $ nosetests tests/test_lambda_unit.py
         1 of the 5 tests should fail and show the Traceback
 
 6. This is easy enough to fix, let's update the correct expected answer in our test_get_something() test and re-run all our local tests. This time, they should all pass again.
 
-    .. code-block:: console
+   .. code-block:: console
 
         $ idle tests/test_lambda_unit.py
         $ nosetests tests/test_lambda_unit.py
@@ -212,7 +226,7 @@ Develop and update skill (blue boxes)
 
 7. Once we are satisfied with the local changes we can confidently update the Lambda in the cloud and test it
 
-    .. code-block:: console
+   .. code-block:: console
 
         $ cd alexa_skill_first
         $ update_lambda_function --function-name skill_firs --dir .

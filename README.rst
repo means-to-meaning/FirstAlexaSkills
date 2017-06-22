@@ -1,5 +1,10 @@
+==============================================================================
 FirstAlexaSkills - A Python package for learning first steps with Alexa skills
 ==============================================================================
+
+.. image:: https://img.shields.io/pypi/v/FirstAlexaSkills.svg
+    :target: https://pypi.python.org/pypi/FirstAlexaSkills/
+    :alt: Latest Version
 
 .. image:: https://travis-ci.org/means-to-meaning/FirstAlexaSkills.svg?branch=master
     :target: https://travis-ci.org/means-to-meaning/FirstAlexaSkills
@@ -13,7 +18,15 @@ Welcome to the wonderful world of Alexa interactions! Do you have great ideas fo
 * creating an Alexa skill (ASK) which will convert your speech into intents (think of them as events for now) which you define - by associating utterances (sentences) to intents. For more details, take a look at the `official ASK starter guide`_.
 * creating an `AWS Lambda`_ function or a web service that will receive the intents from Alexa. This package uses AWS Lambda functions because they are ideal for simple functions - `low cost`_ and zero infrastructure maintainance. You can find the official documentation `here`_. If you are interested in a web service approach to ASK with Python, then you should definitely try John Wheeler's great `flask-ask package`_.
 
-Here is all it takes to create, upload, test, modify, re-upload and re-test your first skill with AlexaFirstSkills:
+You can install ``FirstAlexaSkills`` with:
+
+.. code-block:: console
+
+    $ pip install firstalexaskills
+
+You will also need to setup credentials to use AWS Lambda from to console and a developer account to create an Alexa skill. For more details, see the `installation guide`_.
+
+Here is all it takes to create, upload, test, modify, re-upload and re-test your first AWS Lambda skill function with AlexaFirstSkills:
 
 .. code-block:: console
 
@@ -23,22 +36,13 @@ Here is all it takes to create, upload, test, modify, re-upload and re-test your
     $ cd alexa_skill_first # Once ready, create your own AWS Lambda function
     $ create_lambda_function --function-name skill_first --dir .
     Function succesfully created!
-    AWS Lambda function ARN: arn:aws:lambda:eu-west-1:your_account_id:function:firstskill
+    AWS Lambda function ARN: arn:aws:lambda:your_aws_region:your_account_id:function:skill_first
     $ test_lambda_function --function-name skill_first --test-data tests/data/lambda_test_data.json
     ... test output ...
     $ idle lambda_function.py # modify the skill
-    $ update_lambda_function --function-name skill_first --dir . # update the function in the cloud
-    once you are happy with the functionality create an ASK using AWS Lambda function ARN above
+    $ update_lambda_function --function-name skill_first --dir . # update function in the cloud
     $ test_lambda_function --function-name skill_first --test-data tests/data/lambda_test_data.json
     ... test updated output ...
-
-You can install ``FirstAlexaSkills`` with:
-
-    .. code-block:: console
-
-        $ pip install FirstAlexaSkills
-
-You will also need to setup credentials to use AWS Lambda from to console and a developer account to create an Alexa skill. For more details, see the `installation guide`_.
 
 The package contains example Alexa skills, utilities and `tutorials`_ that will guide you from simply getting the Echo to reply, to setting your home temperature using the IoT device of your choice. Most importantly though, it allows you to develop locally, sync your local Lambda function to the cloud and immediately test it using a fake Alexa event in one button press. Something that might come in handy when building your own skills later.
 
