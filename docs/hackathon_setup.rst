@@ -1,62 +1,70 @@
+=========================================
 Skillathon - a hackathon for Alexa Skills
 =========================================
 
 Setup for the skillathon
-~~~~~~~~~~~~~~~~~~~~~~~~
+========================
+
+1. Check that you have a working internet connection
+
+   .. code-block:: console
+
+       $ ping google.com
+
 1. Install IDE and dependencies on the PC
 
-    .. code-block:: console
+   .. code-block:: console
 
-        $ sudo apt-get install screen python2.7 python-pip python-dev ipython ipython-notebook idle
-        $ sudo pip install --upgrade pip
-        $ sudo pip install FirstAlexaSkills jupyter nose
+       $ sudo apt-get update && sudo apt-get upgrade
+       $ sudo apt-get install python2.7 python-pip python-dev idle
+       $ sudo pip install --upgrade pip
+       $ sudo pip install FirstAlexaSkills jupyter
 
 2. Create an Amazon developer account and an AWS account for the event. Follow the steps outlined in the 'Setup and requirements' section of the `README`_.
 
-3. Depending on the experience level of the participants, you might decide to create the skills and corresponding Lambda functions in advance, in order to allow the participants to focus on modifying them, rather than spend time with the skill setup. Create a list of team names based on the expected number of attendees.
+3. Depending on the experience level of the participants, you might decide to define the Alexa skills in advance, in order to save time and focus on coding, rather than filling out forms. Each ASK Alexa skill needs to have a single service endpoint. Therefore each team developing a Lambda service will require an Alexa skill of their own.
 
-4.  Create a Lambda function for each team and each skill you want to use. Example SaySomething skill:
+   Note: It can be practical to create a list of team names based on the expected number of attendees before the event. Define a skill in the development portal and use the team name as the name of the skill. That way, during the main event, the participants don't have to interact with the developer.amazon.com portal at all. Each team can then invoke the skill saying: "Alexa, ask team blue to tell me something". Please follow Alexa's advice on suitable words for skill invocation when using this!
 
-    .. code-block:: console
+4. Finally, pair your Alexa devices (Echo, Echo Dot, Echo Show) with the Amazon developer account you've created and test the whole setup.
 
-        $ cd ~/
-        $ unpack_example_skills
-        $ cd example_skills/alexa_skill_saysomething
-        $ create_lambda_function --function-name saysomething_<TEAM_NAME> --dir .
+Things to consider
+==================
+**Problem:**
 
-5. Define a skill in the development portal and use <TEAM_NAME> and a number for which skill to use. Example: For the team 'blue' and first skill you will be showing, the invocation name can be 'blue one'. The scheme is really up to you, but it will need to be unique, self-explanatory and follow the ASK guidelines for invocations. Use the <TEAM_NAME> to name the skill as well and set the right ARN as the endpoint.
+* Echo's speech recognition accuracy decreases in proportion to the distance of the speaker and amount of noise in the room. A large room full of people screaming gentle conversation invitations to multiple Alexa devices at once can result into a painful experience.
 
-6. Pair an Alexa device (Echo, Dot) with the Amazon developer you've created and test the whole setup.
+**Workaroud:**
+
+* Rely more on software testing and limit the Echo interactions for the final "ahaaa" moments rather than continuous testing
+* Split teams into smaller rooms
+
+**Problem:**
+
+* The Alexa devices require wifi to communicate with Alexa and many wifi devices (smartphones etc.) trying to connect concurrently to the same network can make the interactions more sluggish, or outright stall them.
+
+**Workaroud:**
+
+* Simples, dedicate a wifi for the Alexa devices and consider not using other wifi access points on the premises to avoid signal interference.
 
 Agenda for the skillathon
-~~~~~~~~~~~~~~~~~~~~~~~~~
+=========================
+In order for the participants to have fun and make the most of their creative ideas, they will need three things: Python basics, a conceptual idea of how Alexa skills work and tools to code and test the skills.
 
-1. Intro to Python (split into groups for people with and without coding experience). People that understand the concept of variables and functions should work through the Intro to Python notebook. People that don't know the concept or haven't programmed before should first get an explanation of what programs are, what is execution flow and how variables and functions work. (see the `15 minute Intro to Python for non-programmers`_)
+1. Intro to Alexa and third-party Alexa skills (ASK)
 
-    .. code-block:: console
+2. Intro to Python (note: consider to split the participants into groups for people with and without coding experience). People that understand the concept of variables and functions should work through the Intro to Python notebook. People that don't know those concepts or haven't programmed before should first get an explanation of what programs are, what is execution flow and how variables and functions work. (see the `15 minute Intro to Python for non-programmers`_)
 
-        $jupyter notebook ~/alexa_skills/python_intro/python_intro.ipynb
+   .. code-block:: console
 
-2. Quick demo of the SaySomething, FactFinding and IoT skills so everybody sees/hears how they work
-3. Split into teams and choose a team name
-4. The skills and Lambda functions are already created for all teams. Test your skill using an Echo, or the Simulator in the developer portal. Each team's Alexa invocation will be "team <colour>". Example of team blue invoking the first skill (SaySomething): Alexa, ask blue one, to say something.
-5. Modify the SaySomething code to say something... else:
+       $ cd ~
+       $ unpack_example_skills # will create a directory alexa_skills with skills and resources
+       $ jupyter notebook ~/alexa_skills/python_intro/python_intro.ipynb
 
-    .. code-block:: console
+3. Quick demo of a working Alexa skill
+4. Split into teams and choose a team name
+5. Work through the `AlexaFirstSkills tutorial`_
 
-        $ cd ~/alexa_skills/alexa_skill_saysomething
-        $ idle example_skills/alexa_skill_saysomething/lambda_function.py
-
-6. Update and test the SaySomething AWS Lambda function
-
-    .. code-block:: console
-
-        $ cd ~/alexa_skills/alexa_skill_saysomething
-        $ update_lambda_function --function-name saysomething --dir .
-
-7. Test the skill using an Echo, or the Amazon dev portal simulator as before.
-
-8. Repeat steps 4. - 7.  for any other skills you've setup.
-
+.. _`AlexaFirstSkills tutorial`: https://github.com/means-to-meaning/FirstAlexaSkills/blob/master/docs/tutorials.rst
 .. _`15 minute Intro to Python for non-programmers`: https://github.com/means-to-meaning/FirstAlexaSkills/tree/master/docs/python_intro.rst
 .. _`README`: https://github.com/means-to-meaning/FirstAlexaSkills/tree/master/README.rst
