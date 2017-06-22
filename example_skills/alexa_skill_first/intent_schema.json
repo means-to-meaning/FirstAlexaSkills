@@ -8,7 +8,7 @@
       "slots": [
         {
           "name": "Person",
-          "type": "LIST_OF_PEOPLE"
+          "type": "LIST_OF_PERSON"
         }
       ]
     },
@@ -17,7 +17,7 @@
       "slots": [
         {
           "name": "Subject",
-          "type": "LIST_OF_SUBJECTS"
+          "type": "LIST_OF_SUBJECT"
         }
       ]
     }

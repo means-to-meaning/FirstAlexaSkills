@@ -2,31 +2,37 @@
 Skillathon - a hackathon for Alexa Skills
 =========================================
 
-Setup for the skillathon
-========================
+PC Setup for the skillathon
+===========================
 
-1. Check that you have a working internet connection
+1. Create an Amazon developer account and an AWS account for the event. Follow the steps outlined in the 'Setup and requirements' section of the `README`_.
+
+2. Check that you have a working internet connection
 
    .. code-block:: console
 
        $ ping google.com
 
-1. Install IDE and dependencies on the PC
+3. Install IDE and dependencies on the PC
 
    .. code-block:: console
 
        $ sudo apt-get update && sudo apt-get upgrade
        $ sudo apt-get install python2.7 python-pip python-dev idle
        $ sudo pip install --upgrade pip
-       $ sudo pip install FirstAlexaSkills jupyter
+       $ sudo pip install firstalexaskills jupyter
+       $ aws configure --profile lambdaUser # use the API credentials from AWS
+       test the setup:
+       $ aws lambda list-functions --profile lambdaUser # there should be a list (possibly empty) of functions
+       $ unpack_example_skills
+       $ jupyter notebook ~/example_skills/python_intro/python_intro.ipynb # does the notebook work?
+       $ rm -rv example_skills
 
-2. Create an Amazon developer account and an AWS account for the event. Follow the steps outlined in the 'Setup and requirements' section of the `README`_.
+4. Depending on the experience level of the participants, you might decide to define the Alexa skills in advance, in order to save time and focus on coding, rather than filling out forms. Each ASK Alexa skill needs to have a single service endpoint. Therefore each team developing a Lambda service will require an Alexa skill of their own.
 
-3. Depending on the experience level of the participants, you might decide to define the Alexa skills in advance, in order to save time and focus on coding, rather than filling out forms. Each ASK Alexa skill needs to have a single service endpoint. Therefore each team developing a Lambda service will require an Alexa skill of their own.
+   Note: It can be practical to create a list of team names based on the expected number of attendees before the event. Define a skill in the development portal and use the team name as the name of the skill. That way, during the main event, the participants don't have to interact with the developer.amazon.com portal at all. Each team can then invoke the skill saying: "Alexa, ask team blue to tell me something". Please follow Alexa's advice on suitable words for skill invocation when using this! Similarly, each team will need to use their team name as part of the AWS Lambda function name they will create.
 
-   Note: It can be practical to create a list of team names based on the expected number of attendees before the event. Define a skill in the development portal and use the team name as the name of the skill. That way, during the main event, the participants don't have to interact with the developer.amazon.com portal at all. Each team can then invoke the skill saying: "Alexa, ask team blue to tell me something". Please follow Alexa's advice on suitable words for skill invocation when using this!
-
-4. Finally, pair your Alexa devices (Echo, Echo Dot, Echo Show) with the Amazon developer account you've created and test the whole setup.
+5. Finally, pair your Alexa devices (Echo, Echo Dot, Echo Show) with the Amazon developer account you've created and test the whole setup.
 
 Things to consider
 ==================
@@ -59,7 +65,7 @@ In order for the participants to have fun and make the most of their creative id
 
        $ cd ~
        $ unpack_example_skills # will create a directory alexa_skills with skills and resources
-       $ jupyter notebook ~/alexa_skills/python_intro/python_intro.ipynb
+       $ jupyter notebook ~/example_skills/python_intro/python_intro.ipynb
 
 3. Quick demo of a working Alexa skill
 4. Split into teams and choose a team name
