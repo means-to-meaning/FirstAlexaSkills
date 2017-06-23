@@ -10,12 +10,12 @@ Installation
 
 2. Create an Amazon `developer account`_
 3. Create an `AWS account`_ (`the first million AWS Lambda calls are free`_)
-4. Create an `IAM user`_ called 'lambdaUser' for running and updating the AWS Lambda functions. The user will require the 'AWSLambdaFullAccess' permissions.
+4. Create an `IAM user`_ called 'lambdaUser' for running and updating the AWS Lambda functions. The user will require the 'AWSLambdaFullAccess' permissions. Make sure to check "Programmatic access" when creating the user. The AWS website will generate an `access key`_ for you, which you can download in .csv file. We will use the credentials in the next step.
 5. Configure the AWS CLI to use credentials of your new IAM user
 
    .. code-block:: console
 
-        $ aws configure --profile lambdaUser --region eu-west-1
+        $ aws configure --profile lambdaUser
 
 6. Create an `execution role for AWS Lambda`_ functions
 
@@ -35,3 +35,4 @@ Preferably use 'basic_lambda_execute' as name for the role, since the package us
 .. _`the first million AWS Lambda calls are free`: https://aws.amazon.com/lambda/pricing/
 .. _`IAM user`: http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html
 .. _`execution role for AWS Lambda`: http://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-create-iam-role.html
+.. _`access key`: http://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys
