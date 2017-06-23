@@ -17,9 +17,17 @@ Installation
 
         $ aws configure --profile lambdaUser
 
-6. Create an `execution role for AWS Lambda`_ functions
+   Paste the information from credentials.csv into your `command line`_:
 
-Preferably use 'basic_lambda_execute' as name for the role, since the package uses it as default. Unless you expect your function to require special privileges, like access to S3, use the official policy 'AWSLambdaExecute'.
+   * Access key ID
+   * Secret access key
+   * an aws region of your choice - example: eu-west-1
+   * format: json
+
+
+6. Create an `execution role for AWS Lambda`_ functions.
+
+   Preferably use 'basic_lambda_execute' as name for the role, since the package uses it as default. Unless you expect your function to require special privileges, like access to S3, use the official policy 'AWSLambdaExecute'.
 
 7. Verify that the IAM user is setup correctly:
 
@@ -30,6 +38,7 @@ Preferably use 'basic_lambda_execute' as name for the role, since the package us
             "Functions": []
         }
 
+.. _`command line`: http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 .. _`developer account`: https://developer.amazon.com/
 .. _`AWS account`: https://aws.amazon.com/
 .. _`the first million AWS Lambda calls are free`: https://aws.amazon.com/lambda/pricing/
