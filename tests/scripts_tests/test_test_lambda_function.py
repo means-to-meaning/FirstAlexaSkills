@@ -31,8 +31,6 @@ class TestFunctional:
                          '############################################',
                          'Sending Alexa Intent: FakeIntent and slots:{}',
                          'Lambda function replied: hmm not sure how to deal with your request',
-                         'Sending Alexa Intent: AskIntent and slots:{}',
-                         'Lambda function replied: hmm not sure how to deal with your request',
                          'Sending Alexa Intent: saySomethingIntent and slots:{}',
                          'Lambda function replied: I say whatever I please']
         # unpack the example_skills in a temp dir
@@ -97,6 +95,7 @@ class TestFunctional:
             std_out, std_err = proc.communicate()
             std_out_str_list = str(std_out.decode()).splitlines()
             std_out_str_list = [l.strip() for l in std_out_str_list]
+            std_out_str_list = std_out_str_list[:7]
             std_err_str = str(std_err.decode())
             is_stdout_asexpected = (set(std_out_str_list) == set(self.ref_reply))
             is_stderr_asexpected = (std_err_str == '')
