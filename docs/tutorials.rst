@@ -230,7 +230,7 @@ Develop and update skill (blue boxes)
    .. code-block:: console
 
         $ cd alexa_skill_first
-        $ update_lambda_function --function-name skill_firs --dir .
+        $ update_lambda_function --function-name skill_first --dir .
         $ test_lambda_function --function-name skill_first --test-data tests/data/lambda_test_data.json
 
 8. You can follow steps 4 to 7 to modify the remainder of your code and complete the rest of the challenge.

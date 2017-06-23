@@ -20,7 +20,7 @@ def input_aruguments():
                         help="AWS region where the Lambda function resides")
     parser.add_argument("--dir", required=True,
                         help="Directory containing the Lambda function")
-    parser.add_argument("--test-data", default="lambda_test_data.json",
+    parser.add_argument("--test-data", default="tests/data/lambda_test_data.json",
                         help="Test data for faking the Alexa event")
     (args, additional) = parser.parse_known_args()
     return args, additional
