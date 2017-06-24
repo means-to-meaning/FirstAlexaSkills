@@ -31,7 +31,6 @@ Deploy and test an existing skill (green boxes)
 
    .. code-block:: console
 
-        $ mkdir alexa_development
         $ unpack_example_skills
         $ cd example_skills
 
@@ -60,6 +59,7 @@ Deploy and test an existing skill (green boxes)
 
    B. When you speak to Alexa, the AWS Lambda function (the Python code you've been looking at) will receive a specific intent that the sentence triggered and will process it.
 
+(you can close the IDLE window now)
 
 5. We can upload the function as is to the cloud to make sure all works as expected. When we run create_lambda_function, it will zip up this directory and send it to the cloud. We will need the "AWS Lambda function ARN" identifier later to link our skill definition to our processing function.
 
@@ -106,17 +106,17 @@ Deploy and test an existing skill (green boxes)
         Lambda function returned an error:
            stackTrace:
          /var/task/lambda_function.py
-         213
+         208
          lambda_handler
          return on_intent(event['request'], event['session'])
 
          /var/task/lambda_function.py
-         175
+         170
          on_intent
          return intent_handler(intent, session)
 
          /var/task/lambda_function.py
-         68
+         63
          intent_handler
          person_name = intent['slots']['Person']['value']
            errorMessage: 'Person'
