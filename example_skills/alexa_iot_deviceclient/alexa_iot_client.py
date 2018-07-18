@@ -24,7 +24,7 @@ import logging
 import getopt
 from queue import Queue
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
-import intent_processor as ip
+from . import intent_processor as ip
 
 debug_level = logging.INFO
 device_topic_id = "alexa_iot/device1"

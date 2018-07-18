@@ -7,10 +7,10 @@ For additional samples, visit the Alexa Skills Kit Getting Started guide at
 http://amzn.to/1LGWsLG
 """
 
-from __future__ import print_function
+
 import os
 import json
-from Queue import Queue
+from queue import Queue
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 
 skill_id = "amzn1.ask.skill.123"

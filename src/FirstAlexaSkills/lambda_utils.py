@@ -80,7 +80,7 @@ def create_lambda(client, function_name, dir_path, role):
     zip_file = ""
     fun_arn = None
     try:
-        runtime = 'python2.7'
+        runtime = 'python3.6'
         zip_file = create_zipfile(dir_path)
         response = client.create_function(
             FunctionName=function_name,
@@ -137,7 +137,7 @@ def update_lambda(client, function_name, dir_path):
 
 
 def replace_nested_dict_val(orig_dict, k, v):
-    for key, val in orig_dict.items():
+    for key, val in list(orig_dict.items()):
         if key == k:
             orig_dict[key] = v
         elif isinstance(val, collections.Mapping):
@@ -153,7 +153,7 @@ def generate_testevents(test_data, event_template):
         template = json.load(f)
     for test in tests_list:
         new_event = copy.deepcopy(template)
-        for k, v in test.items():
+        for k, v in list(test.items()):
             new_event = replace_nested_dict_val(new_event, k, v)
         event_list.append(copy.deepcopy(new_event))
     return event_list
@@ -196,20 +196,20 @@ def print_nested(obj, nested_level=0, output=sys.stdout):
     spacing = '   '
     if type(obj) == dict:
         # print >> output, '%s{' % ((nested_level) * spacing)
-        for k, v in obj.items():
+        for k, v in list(obj.items()):
             if hasattr(v, '__iter__'):
-                print >> output, '%s%s:' % ((nested_level + 1) * spacing, k)
+                print('%s%s:' % ((nested_level + 1) * spacing, k))
                 print_nested(v, nested_level + 1, output)
             else:
-                print >> output, '%s%s: %s' % ((nested_level + 1) * spacing, k, v)
+                print('%s%s: %s' % ((nested_level + 1) * spacing, k, v))
         # print >> output, '%s}' % (nested_level * spacing)
     elif type(obj) == list:
-        print >> output, '%s' % ((nested_level) * spacing)
+        print('%s' % ((nested_level) * spacing))
         for v in obj:
             if hasattr(v, '__iter__'):
                 print_nested(v, nested_level + 1, output)
             else:
-                print >> output, '%s%s' % ((nested_level + 1) * spacing, v)
+                print('%s%s' % ((nested_level + 1) * spacing, v))
         # print >> output, '%s' % ((nested_level) * spacing)
     else:
-        print >> output, '%s%s' % (nested_level * spacing, obj)
+        print('%s%s' % (nested_level * spacing, obj))

@@ -18,9 +18,9 @@ PC Setup for the skillathon
    .. code-block:: console
 
        $ sudo apt-get update && sudo apt-get upgrade
-       $ sudo apt-get install python2.7 python-pip python-dev idle
-       $ sudo pip install --upgrade pip
-       $ sudo pip install firstalexaskills jupyter nose
+       $ sudo apt-get install python3.6 python3-pip python3-dev idle
+       $ sudo pip3 install --upgrade pip
+       $ sudo pip3 install firstalexaskills jupyter nose
        $ aws configure --profile lambdaUser # use the API credentials from AWS
        test the setup:
        $ aws lambda list-functions --profile lambdaUser # there should be a list (possibly empty) of functions

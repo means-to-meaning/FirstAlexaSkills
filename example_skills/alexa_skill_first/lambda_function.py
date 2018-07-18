@@ -7,7 +7,7 @@ For additional samples, visit the Alexa Skills Kit Getting Started guide at
 http://amzn.to/1LGWsLG
 """
 
-from __future__ import print_function
+
 import random
 
 # --------------- Custom response logic ---------------------

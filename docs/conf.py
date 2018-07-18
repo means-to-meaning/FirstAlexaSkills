@@ -57,9 +57,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'FirstAlexaSkills'
-copyright = u'2017, Vlastimil Pis'
-author = u'Vlastimil Pis'
+project = 'FirstAlexaSkills'
+copyright = '2017, Vlastimil Pis'
+author = 'Vlastimil Pis'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -69,10 +69,10 @@ author = u'Vlastimil Pis'
 try:
     release = pkg_resources.get_distribution('FirstAlexaSkills').version
 except pkg_resources.DistributionNotFound:
-    print 'To build the documentation, The distribution information of FirstAlexaSkills'
-    print 'Has to be available.  Either install the package into your'
-    print 'development environment or run "setup.py develop" to setup the'
-    print 'metadata.  A virtualenv is recommended!'
+    print('To build the documentation, The distribution information of FirstAlexaSkills')
+    print('Has to be available.  Either install the package into your')
+    print('development environment or run "setup.py develop" to setup the')
+    print('metadata.  A virtualenv is recommended!')
     sys.exit(1)
 del pkg_resources
 
@@ -153,13 +153,13 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'FirstAlexaSkills.tex', u'FirstAlexaSkills Documentation', u'Author', 'manual')]
+    (master_doc, 'FirstAlexaSkills.tex', 'FirstAlexaSkills Documentation', 'Author', 'manual')]
 
 # -- Options for manual page output ---------------------------------------
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'firstalexaskills', u'FirstAlexaSkills Documentation',
+    (master_doc, 'firstalexaskills', 'FirstAlexaSkills Documentation',
      [author], 1)
 ]
 
@@ -169,7 +169,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'FirstAlexaSkills', u'FirstAlexaSkills Documentation',
+    (master_doc, 'FirstAlexaSkills', 'FirstAlexaSkills Documentation',
      author, 'FirstAlexaSkills', 'One line description of project.',
      'Miscellaneous'),
 ]
