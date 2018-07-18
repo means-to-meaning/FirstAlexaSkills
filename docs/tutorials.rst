@@ -21,8 +21,8 @@ Let's stop and think how can we do what the challenge is asking for. We will nee
 
 **Suggested steps:**
 
-.. image:: https://github.com/means-to-meaning/FirstAlexaSkills/blob/master/docs/alexa_skill.png
-    :align: center
+   .. image:: https://github.com/means-to-meaning/FirstAlexaSkills/blob/master/docs/alexa_skill.svg
+        :align: center
 
 Deploy and test an existing skill (green boxes)
 -----------------------------------------------

@@ -148,16 +148,17 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['awscli', 'boto3', 'AWSIoTPythonSDK'],
+    install_requires=['awscli', 'boto3', 'AWSIoTPythonSDK', 'nose'],
+
+    # override setup.py commands to trigger custom functions
+    cmdclass={'test': ToxCommand,
+              'clean': CleanCommand},
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
     # for example:
     # $ pip install -e .[dev,test]
     tests_require=['tox', 'nose'],
-    cmdclass={'test': ToxCommand,
-              'clean': CleanCommand},
-
     extras_require={
         'dev': ['check-manifest', 'sphinx', 'autodoc'],
         'test': ['nose'],

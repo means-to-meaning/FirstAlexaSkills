@@ -18,7 +18,7 @@ You can install ``FirstAlexaSkills`` with ``pip``:
 
 .. code-block:: console
 
-    $ pip install FirstAlexaSkills
+    $ pip install firstalexaskills
 
 See :doc:`Installation <installation>` for more information.
 
