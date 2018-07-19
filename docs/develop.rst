@@ -14,14 +14,17 @@ Here are a few steps to get you started:
 .. code-block:: console
 
  $ git clone https://github.com/means-to-meaning/FirstAlexaSkills
- $ mkvirtualenv python27fasdev --no-site-packages
- $ activate python27fas
+ $ mkvirtualenv python36fasdev --no-site-packages
+ $ activate python36fas
  $ cd FirstAlexaSkills
  $ python setup.py develop # or pip install -e .
  __________ do some work __________
- $ python setup.py test -a '-e cloud' # this will run all the tests including end-end cloud stuff
+ $ python setup.py test -a '-e cloud' # this will run all the tests including end-end cloud stuff - requires valid IAM credentials for 'lambdaUser'
+ $ python setup.py test -a '-e docs' # test documentation
+ $ python setup.py test # run the local tests
  $ restview docs/develop.rst # view docs in browser while modifying them
- $ sphinx-apidoc -F -o docs FirstAlexaSkills # generate sphinx autodoc documentation
+ # $ sphinx-apidoc -F -o docs FirstAlexaSkills # generate sphinx autodoc documentation, don't run this every time as it tends to add all modules including the tests
  $ python setup.py develop --uninstall # or pip uninstall FirstAlexaSkills
  $ python setup.py test
  $ deactivate
+ # update the commit and push!

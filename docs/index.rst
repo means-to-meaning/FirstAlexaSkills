@@ -27,8 +27,8 @@ Why a package for making Alexa Skills?
 
 If you haven't developed Alexa skills before, the workflow can seem overwhelming.
 If you have developed skills before, you will agree that having a workflow for
- developing and testing the Lambda code really makes the difference between
- happiness and despair. This package addresses:
+developing and testing the Lambda code really makes the difference between
+happiness and despair. This package addresses:
 
 * Automated testing for Lambdas
 * User-friendly generation of fake Alexa events
@@ -51,6 +51,7 @@ Layout
    hackathon_setup
    python_intro
    FirstAlexaSkills
+   develop.rst
 
 
 Indices and tables

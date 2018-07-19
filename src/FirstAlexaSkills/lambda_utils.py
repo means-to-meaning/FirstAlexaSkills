@@ -175,7 +175,7 @@ def test_lambda(client, function_name, event):
         print("Sending Alexa Intent: " + event["request"]["intent"]["name"] +
               " and slots:" + str(event["request"]["intent"]["slots"]))
         event_binary = bytearray()
-        event_binary.extend(json.dumps(event))
+        event_binary.extend(json.dumps(event).encode())
         response = client.invoke(
             FunctionName=function_name,
             InvocationType='RequestResponse',

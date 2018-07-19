@@ -61,7 +61,7 @@ class TestFunctional:
             print(response)
         create_cmd = ['create_lambda_function', '--function-name', cls.function_name, '--dir',
                       cls.skill_dir, '--execution-role', cls.execution_role]
-        cls.cmd = [cls.script, '--function-name', cls.function_name, '--dir',  cls.skill_dir,
+        cls.cmd = [cls.script, '--function-name', cls.function_name, '--dir', cls.skill_dir,
                    '--execution-role', cls.execution_role, '--test-data', cls.alexa_test_data]
         time.sleep(1)
         existing_funs_list = lambda_utils.list_lambda_functions(cls.client)

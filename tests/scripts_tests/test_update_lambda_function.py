@@ -58,7 +58,7 @@ class TestFunctional():
             response = cls.client.delete_function(FunctionName=cls.function_name)
             print(response)
         cls.cmd = [cls.script, '--function-name', cls.function_name,
-                   '--dir',  cls.skill_dir,
+                   '--dir', cls.skill_dir,
                    '--test-data', cls.alexa_test_data]
         existing_funs_list = lambda_utils.list_lambda_functions(cls.client)
         if cls.function_name in existing_funs_list:

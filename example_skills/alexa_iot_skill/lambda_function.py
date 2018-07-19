@@ -10,7 +10,7 @@ http://amzn.to/1LGWsLG
 
 import os
 import json
-from queue import Queue
+from Queue import Queue
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 
 skill_id = "amzn1.ask.skill.123"
@@ -60,18 +60,18 @@ def build_response(session_attributes, speechlet_response):
 
 
 # Custom MQTT message callback
-def customCallback(client, userdata, message):
+def custom_callback(_, __, message):
     msg_queue.put(message.payload)
 
 
 def communicate_message(intent_str):
-    myAWSIoTMQTTClient = AWSIoTMQTTClient("AlexaIotLambdaFunction")
-    myAWSIoTMQTTClient.configureEndpoint(host, 8883)
-    myAWSIoTMQTTClient.configureCredentials(rootCAPath, privateKeyPath, certificatePath)
+    myawsiot_mqtt_client = AWSIoTMQTTClient("AlexaIotLambdaFunction")
+    myawsiot_mqtt_client.configureEndpoint(host, 8883)
+    myawsiot_mqtt_client.configureCredentials(rootCAPath, privateKeyPath, certificatePath)
     # Connect and subscribe to AWS IoT
-    myAWSIoTMQTTClient.connect()
-    myAWSIoTMQTTClient.subscribe(skill_topic_id, 1, customCallback)
-    myAWSIoTMQTTClient.publish(device_topic_id, intent_str, 1)
+    myawsiot_mqtt_client.connect()
+    myawsiot_mqtt_client.subscribe(skill_topic_id, 1, custom_callback)
+    myawsiot_mqtt_client.publish(device_topic_id, intent_str, 1)
     reply = msg_queue.get(block=True, timeout=msg_wait_time)
     return reply
 
@@ -104,7 +104,7 @@ def handle_session_end_request():
         card_title, speech_output, None, should_end_session))
 
 
-def forward_intent(intent_request, session):
+def forward_intent(intent_request, _):
     intent = intent_request["intent"]
     print("forwaring intent: " + str(intent_request))
     reply = communicate_message(str(intent_request))
@@ -126,8 +126,8 @@ def forward_intent(intent_request, session):
 def on_session_started(session_started_request, session):
     """ Called when the session starts """
 
-    print("on_session_started requestId=" + session_started_request['requestId']
-          + ", sessionId=" + session['sessionId'])
+    print("on_session_started requestId=" + session_started_request['requestId'] +
+          ", sessionId=" + session['sessionId'])
 
 
 def on_launch(launch_request, session):
@@ -172,7 +172,7 @@ def on_session_ended(session_ended_request, session):
 
 # --------------- Main handler ------------------
 
-def lambda_handler(event, context):
+def lambda_handler(event, _):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
     etc.) The JSON body of the request is provided in the event parameter.
     """
